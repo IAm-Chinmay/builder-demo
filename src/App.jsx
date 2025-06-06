@@ -5,7 +5,10 @@ const ModelViewer = lazy(() => import("./ModelViewer"));
 
 function App() {
   const [isModelViewerVisible, setIsModelViewerVisible] = useState(false);
-  const [modelUrl, setModelUrl] = useState("/2BHK.glb");
+  const [modelUrl, setModelUrl] = useState(
+    // Fixed GitHub CDN URL - remove 'public/' from the path
+    "https://cdn.jsdelivr.net/gh/IAm-Chinmay/builder-demo@main/2BHK.glb"
+  );
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -141,16 +144,21 @@ function App() {
         </h3>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           <button
-            onClick={() => setModelUrl("/2BHK.glb")}
+            onClick={() =>
+              setModelUrl(
+                "https://cdn.jsdelivr.net/gh/IAm-Chinmay/builder-demo@main/2BHK.glb"
+              )
+            }
             style={{
               padding: "8px 16px",
               borderRadius: "20px",
-              border:
-                modelUrl === "/2BHK.glb"
-                  ? "2px solid #007bff"
-                  : "1px solid #dee2e6",
-              backgroundColor: modelUrl === "/2BHK.glb" ? "#e7f3ff" : "white",
-              color: modelUrl === "/2BHK.glb" ? "#007bff" : "#495057",
+              border: modelUrl.includes("2BHK.glb")
+                ? "2px solid #007bff"
+                : "1px solid #dee2e6",
+              backgroundColor: modelUrl.includes("2BHK.glb")
+                ? "#e7f3ff"
+                : "white",
+              color: modelUrl.includes("2BHK.glb") ? "#007bff" : "#495057",
               cursor: "pointer",
               fontSize: "14px",
               fontWeight: "500",
@@ -159,7 +167,32 @@ function App() {
           >
             2BHK Model
           </button>
-          {/* Add more model options here */}
+
+          {/* Test with a known working model */}
+          <button
+            onClick={() =>
+              setModelUrl(
+                "https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+              )
+            }
+            style={{
+              padding: "8px 16px",
+              borderRadius: "20px",
+              border: modelUrl.includes("Astronaut.glb")
+                ? "2px solid #007bff"
+                : "1px solid #dee2e6",
+              backgroundColor: modelUrl.includes("Astronaut.glb")
+                ? "#e7f3ff"
+                : "white",
+              color: modelUrl.includes("Astronaut.glb") ? "#007bff" : "#495057",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "500",
+              transition: "all 0.2s ease",
+            }}
+          >
+            Test Model (Astronaut)
+          </button>
         </div>
       </div>
 
